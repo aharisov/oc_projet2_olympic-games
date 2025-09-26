@@ -1,0 +1,18 @@
+<div class="chart-inner">
+    <ngx-charts-pie-chart
+    [view]="chartView"
+    [results]="chartData"
+    [gradient]="isGradient"
+    [legend]="showLegend"
+    [labels]="showLabels"
+    [labelFormatting]=""
+    [trimLabels]="isLabelsTrimmed"
+    [labelFormatting]="labelsFormat"
+    [doughnut]="isDoughnut"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+    >
+    </ngx-charts-pie-chart>
+</div>
+

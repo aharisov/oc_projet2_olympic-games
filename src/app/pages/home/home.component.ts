@@ -1,17 +1,17 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { NumbersListComponent } from "src/app/core/components/numbers-list/numbers-list.component";
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
+import { ChartComponent } from "src/app/core/components/chart/chart.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [AsyncPipe, NumbersListComponent]
+  imports: [NumbersListComponent, ChartComponent]
 })
 
 export class HomeComponent implements OnInit {
