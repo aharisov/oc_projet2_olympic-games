@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./app/core/shared/variables";
+
+body {
+  font-family: 'Poppins', Tahoma, Arial, sans-serif;
+}
+
+.cont {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+
+    @media (min-width: 360px) {
+        padding: 0 20px;
+    }
+}
+
+header {
+    margin-bottom: 50px;
+    padding-top: 100px;
+
+    h1 {
+        width: max-content;
+        margin: 0 auto 20px;
+        padding: 10px 20px;
+        background-color: $titleBgColor;
+        border-radius: 12px;
+        font-size: 24px;
+        font-weight: 400;
+        color: #fff;
+
+        @media (min-width: 420px) {
+            padding: 10px 30px;
+            font-size: 28px;
+        }
+    }
+}
