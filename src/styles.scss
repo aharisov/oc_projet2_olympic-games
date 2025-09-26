@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./app/core/shared/variables";
+@use "./app/core/shared/variables";
 
 body {
   font-family: 'Poppins', Tahoma, Arial, sans-serif;
@@ -23,7 +23,7 @@ header {
         width: max-content;
         margin: 0 auto 20px;
         padding: 10px 20px;
-        background-color: $titleBgColor;
+        background-color: variables.$titleBgColor;
         border-radius: 12px;
         font-size: 24px;
         font-weight: 400;

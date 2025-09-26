@@ -1,4 +1,4 @@
-@import "../../shared/variables";
+@use "../../shared/variables";
 .numbers-list {
     display: flex;
     align-items: center;
@@ -11,7 +11,7 @@
         align-items: center;
         justify-content: center;
         padding: 10px 15px;
-        border: 2px solid $titleBgColor;
+        border: 2px solid variables.$titleBgColor;
         border-radius: 12px;
         text-align: center;
 
