@@ -12,7 +12,7 @@ import { HomeChartData } from '../../models/HomeChartData';
 export class HomeChartComponent implements OnInit {
   @Input() data!: HomeChartData[];
 
-  chartData: HomeChartData[] = this.data;
+  chartData: HomeChartData[] = [];
   chartView: [number, number] = [0, 0];
 
   // options
@@ -21,14 +21,11 @@ export class HomeChartComponent implements OnInit {
   showLabels: boolean = true;
   isDoughnut: boolean = false;
   isLabelsTrimmed: boolean = false;
-  labelsFormat: any = (val: any) => val + '      ';
-
-  constructor() {
-    this.chartData ? Object.assign(this.chartData) : '';
-  }
 
   ngOnInit(): void {
-    
+    setTimeout(() => {
+      this.chartData = this.data;
+    }, 200)
   }
 
   onSelect($event: Event) {

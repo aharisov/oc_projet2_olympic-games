@@ -4,20 +4,22 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { NumbersListComponent } from "src/app/core/components/numbers-list/numbers-list.component";
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { ChartComponent } from "src/app/core/components/chart/chart.component";
+import { HomeChartComponent } from "src/app/core/components/home-chart/home-chart.component";
+import { HomeChartData } from 'src/app/core/models/HomeChartData';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [NumbersListComponent, ChartComponent]
+  imports: [NumbersListComponent, HomeChartComponent]
 })
 
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> = of(null);
 
   numberList: NumberItem[] = [];
+  chartData: HomeChartData[] = [];
 
   constructor(private olympicService: OlympicService) {}
 
@@ -39,9 +41,21 @@ export class HomeComponent implements OnInit {
         data.map((item: Olympic) => {
             if (gamesCounter < item.participations.length) {
               gamesCounter = item.participations.length;
-            } 
+            }
+            
+            // count whole number of medals for every country
+            let medalsCounter = 0;
+            item.participations.map(el => medalsCounter += el.medalsCount);
+
+            // add the country with it's medals number to the array for chart
+            this.chartData.push({
+              name: item.country,
+              value: medalsCounter
+            })
           }
         )
+
+        console.info('chart data', this.chartData)
 
         // pass calculated data to numbers list component
         this.numberList = [
