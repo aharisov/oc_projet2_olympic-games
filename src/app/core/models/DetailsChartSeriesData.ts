@@ -1,4 +1,4 @@
 export interface DetailChartSeriesData {
-    name: number,
+    name: string,
     value: number
 }

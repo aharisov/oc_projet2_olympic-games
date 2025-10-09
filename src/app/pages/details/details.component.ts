@@ -117,7 +117,7 @@ export class DetailsComponent {
             if (country === this.countryId) {
               // make array of medals number by year
               item.participations.map(el => seriesData.push({ 
-                  name: el.year,
+                  name: el.year.toString(),
                   value: el.medalsCount
                 })
               );
