@@ -18,6 +18,7 @@ export class DetailsComponent {
   public countryId: string = '';
 
   numberList: NumberItem[] = [];
+  pageTitle: string = '';
 
   constructor(
     private olympicService: OlympicService,
@@ -29,6 +30,7 @@ export class DetailsComponent {
     
     this.countryId = this.activatedRoute.snapshot.params['id'];
 
+    this.setPageTitle();
     this.calculateNumbers();
   }
 
@@ -76,6 +78,24 @@ export class DetailsComponent {
             number: athletCounter
           }
         ];
+      }
+    );
+  }
+
+  /**
+   * Helper-function for getting country's name and making it page's title
+   */
+  setPageTitle(): void {
+    this.olympics$.subscribe(
+      (data) => {
+        data.map((item: Olympic) => {
+            let country = item.country.toLowerCase().replace(' ', '_');
+
+            if (country === this.countryId) {
+              this.pageTitle = item.country;
+            }
+          }
+        )
       }
     );
   }
