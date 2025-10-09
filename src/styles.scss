@@ -66,3 +66,26 @@ header {
         font-size: 22px;
     }
 }
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    padding: 5px 10px;
+    border: 1px solid variables.$titleBgColor;
+    background-color: #fff;
+    border-radius: 12px;
+    color: variables.$titleBgColor;
+    text-decoration: none;
+    transition: 0.2s linear;
+
+    span {
+        margin-left: 10px;
+    }
+
+    &:hover {
+        background-color: variables.$titleBgColor;
+        color: #fff;
+    }
+}

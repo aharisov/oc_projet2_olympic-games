@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DetailsChartComponent } from 'src/app/core/components/details-chart/details-chart.component';
 import { NumbersListComponent } from 'src/app/core/components/numbers-list/numbers-list.component';
@@ -8,7 +9,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
   selector: 'app-details',
-  imports: [NumbersListComponent, DetailsChartComponent],
+  imports: [NumbersListComponent, DetailsChartComponent, RouterLink],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
