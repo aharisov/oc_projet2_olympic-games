@@ -8,10 +8,16 @@
     [yAxisLabel]="yAxisLabel"
     [timeline]="timeline"
     [results]="chartData"
+    (select)="onSelect($event)"
 >
     <ng-template #tooltipTemplate let-model="model">
         <div class="tooltip">
-            <p>Nombre de médailles : {{ model.value }}</p>
+            <p>Nombre de médailles : {{ model.value}}</p>
+        </div>
+    </ng-template>
+    <ng-template #seriesTooltipTemplate let-model="model">
+        <div class="tooltip">
+            <p>Nombre de médailles : {{ model[0]['value']}}</p>
         </div>
     </ng-template>
 </ngx-charts-line-chart>
