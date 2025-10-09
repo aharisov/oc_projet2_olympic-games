@@ -3,6 +3,8 @@ import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DetailsChartComponent } from 'src/app/core/components/details-chart/details-chart.component';
 import { NumbersListComponent } from 'src/app/core/components/numbers-list/numbers-list.component';
+import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
+import { DetailChartSeriesData } from 'src/app/core/models/DetailsChartSeriesData';
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -19,6 +21,7 @@ export class DetailsComponent {
 
   numberList: NumberItem[] = [];
   pageTitle: string = '';
+  chartData!: DetailsChartData[];
 
   constructor(
     private olympicService: OlympicService,
@@ -32,6 +35,7 @@ export class DetailsComponent {
 
     this.setPageTitle();
     this.calculateNumbers();
+    this.setChartData();
   }
 
   /**
@@ -93,6 +97,38 @@ export class DetailsComponent {
 
             if (country === this.countryId) {
               this.pageTitle = item.country;
+            }
+          }
+        )
+      }
+    );
+  }
+
+  /**
+   * Helper-function to prepare data for the chart
+   */
+  setChartData(): void {
+    this.olympics$.subscribe(
+      (data) => {
+        data.map((item: Olympic) => {
+            let country = item.country.toLowerCase().replace(' ', '_');
+            let seriesData: DetailChartSeriesData[] = [];
+
+            if (country === this.countryId) {
+              // make array of medals number by year
+              item.participations.map(el => seriesData.push({ 
+                  name: el.year,
+                  value: el.medalsCount
+                })
+              );
+
+              // prepare data for the chart
+              this.chartData = [
+                {
+                  "name": item.country,
+                  "series": seriesData,
+                },
+              ];
             }
           }
         )
