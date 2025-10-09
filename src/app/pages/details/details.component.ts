@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DetailsChartComponent } from 'src/app/core/components/details-chart/details-chart.component';
 import { NumbersListComponent } from 'src/app/core/components/numbers-list/numbers-list.component';
@@ -15,14 +15,20 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class DetailsComponent {
   public olympics$: Observable<any> = of(null);
+  public countryId: string = '';
 
   numberList: NumberItem[] = [];
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(
+    private olympicService: OlympicService,
+    public activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     
+    this.countryId = this.activatedRoute.snapshot.params['id'];
+
     this.calculateNumbers();
   }
 
@@ -33,11 +39,24 @@ export class DetailsComponent {
   calculateNumbers(): void {
     this.olympics$.subscribe(
       (data) => {
-        // get number of JOs calculating max number of participations
         let gamesCounter = 0;
+        let medalsCounter = 0;
+        let athletCounter = 0;
+        
         data.map((item: Olympic) => {
-            if (gamesCounter < item.participations.length) {
-              gamesCounter = item.participations.length;
+            let country = item.country.toLowerCase().replace(' ', '_');
+
+            if (country === this.countryId) {
+              // count number of participations
+              if (gamesCounter < item.participations.length) {
+                gamesCounter = item.participations.length;
+              }
+
+              // count whole number of medals and athletes
+              item.participations.map(el => {
+                medalsCounter += el.medalsCount;
+                athletCounter += el.athleteCount;
+              });
             }
           }
         )
@@ -50,11 +69,11 @@ export class DetailsComponent {
           },
           {
             title: "Total number of medals",
-            number: data.length
+            number: medalsCounter
           },
           {
             title: "Total number of athletes",
-            number: data.length
+            number: athletCounter
           }
         ];
       }
