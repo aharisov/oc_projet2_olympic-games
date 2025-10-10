@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { DetailsChartData } from '../../models/DetailsChartData';
-import { MoreChartInfo } from '../../models/MoreChartInfo';
+import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
+import { MoreChartInfo } from 'src/app/core/models/MoreChartInfo';
 
 @Component({
   selector: 'app-details-chart',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { NumbersListComponent } from "src/app/core/components/numbers-list/numbers-list.component";
+import { NumbersListComponent } from "src/app/components/numbers-list/numbers-list.component";
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { HomeChartComponent } from "src/app/core/components/home-chart/home-chart.component";
+import { HomeChartComponent } from "src/app/components/home-chart/home-chart.component";
 import { HomeChartData } from 'src/app/core/models/HomeChartData';
 
 @Component({

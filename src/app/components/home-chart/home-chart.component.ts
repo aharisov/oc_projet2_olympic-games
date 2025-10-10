@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { HomeChartData } from '../../models/HomeChartData';
+import { HomeChartData } from 'src/app/core/models/HomeChartData';
 
 @Component({
   selector: 'app-home-chart',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { DetailsChartComponent } from 'src/app/core/components/details-chart/details-chart.component';
-import { NumbersListComponent } from 'src/app/core/components/numbers-list/numbers-list.component';
+import { DetailsChartComponent } from 'src/app/components/details-chart/details-chart.component';
+import { NumbersListComponent } from 'src/app/components/numbers-list/numbers-list.component';
 import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
 import { DetailChartSeriesData } from 'src/app/core/models/DetailsChartSeriesData';
 import { MoreChartInfo } from 'src/app/core/models/MoreChartInfo';

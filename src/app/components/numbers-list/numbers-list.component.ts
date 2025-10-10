@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NumberItem } from '../../models/NumberItem';
+import { NumberItem } from 'src/app/core/models/NumberItem';
 
 @Component({
   selector: 'app-numbers-list',
