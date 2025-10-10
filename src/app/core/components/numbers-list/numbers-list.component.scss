@@ -1,0 +1,28 @@
+@use "../../shared/variables";
+.numbers-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .numbers-item {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 15px;
+        border: 2px solid variables.$titleBgColor;
+        border-radius: 12px;
+        text-align: center;
+
+        .title {
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: grey;
+        }
+        .number {
+            font-size: 22px;
+            font-weight: bold;
+        }
+    }
+}

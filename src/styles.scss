@@ -1,1 +1,91 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./app/core/shared/variables";
+
+body {
+  font-family: 'Poppins', Tahoma, Arial, sans-serif;
+}
+
+.cont {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+
+    @media (min-width: 360px) {
+        padding: 0 20px;
+    }
+}
+
+header {
+    margin-bottom: 50px;
+    padding-top: 100px;
+
+    h1 {
+        width: max-content;
+        margin: 0 auto 20px;
+        padding: 10px 20px;
+        background-color: variables.$titleBgColor;
+        border-radius: 12px;
+        font-size: 24px;
+        font-weight: 400;
+        color: #fff;
+
+        @media (min-width: 420px) {
+            padding: 10px 30px;
+            font-size: 28px;
+        }
+    }
+}
+
+.chart-inner {
+    .pie-label {
+        padding: 0 20px;
+        font-size: 16px;
+        transform: translate(-5px, -10px);
+
+        @media (min-width: 480px) {
+            transform: translate(0, -15px);
+            font-size: 18px;
+        }
+
+        @media (min-width: 800px) {
+            transform: translate(0, -20px);
+            font-size: 22px;
+        }
+    }
+}
+
+.line-chart {
+    text {
+        font-size: 18px;
+    }
+    .tick text {
+        font-size: 18px !important;
+    }
+    [ngx-charts-axis-label] text {
+        margin-top: 10px;
+        font-size: 22px;
+    }
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    padding: 5px 10px;
+    border: 1px solid variables.$titleBgColor;
+    background-color: #fff;
+    border-radius: 12px;
+    color: variables.$titleBgColor;
+    text-decoration: none;
+    transition: 0.2s linear;
+
+    span {
+        margin-left: 10px;
+    }
+
+    &:hover {
+        background-color: variables.$titleBgColor;
+        color: #fff;
+    }
+}

@@ -1,0 +1,10 @@
+<div class="numbers-list">
+    @for (numberItem of data; track $index) {
+        <div class="numbers-item">
+            <div class="title">{{ numberItem.title }}</div>
+            <div class="number">{{ numberItem.number }}</div>
+        </div>
+    } @empty {
+        <div class="empty">Statistics not available</div>
+    }
+</div>

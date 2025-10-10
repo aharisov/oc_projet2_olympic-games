@@ -1,0 +1,25 @@
+<div #containerRef class="chart-inner">
+    <ngx-charts-pie-chart
+        [view]="chartView"
+        [results]="chartData"
+        [gradient]="isGradient"
+        [legend]="showLegend"
+        [labels]="showLabels"
+        [labelFormatting]=""
+        [trimLabels]="isLabelsTrimmed"
+        [doughnut]="isDoughnut"
+        [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+        (select)="onSelect($event)"
+    >
+        <ng-template #tooltipTemplate let-model="model">
+            <div class="tooltip">
+                <p>{{ model.name }}</p>
+                <div class="inner">
+                    <img src="/assets/img/medal.svg" alt="">
+                    <span>{{ model.value }}</span>
+                </div>
+            </div>
+        </ng-template>
+    </ngx-charts-pie-chart>
+</div>
+

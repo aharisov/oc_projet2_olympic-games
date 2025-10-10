@@ -1,0 +1,59 @@
+@import "../../shared/variables";
+.chart-inner {
+    display: flex;
+    justify-content: center;
+    min-height: 180px;
+
+    @media (min-width: 480px) {
+        min-height: 300px;
+    }
+
+    @media (min-width: 640px) {
+        min-height: 500px;
+    }
+}
+::ng-deep ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+    .tooltip-caret.position-top {
+        display: none;
+    }
+    &::after {
+        position: absolute;
+        bottom: -10px;
+        left: calc(50% - 10px);
+        content: "";
+        display: block;
+        height: 20px;
+        width: 20px;
+        background-color: $titleBgColor;
+        border: 2px solid $titleBgColor;
+        border-radius: 0 0 0 0.25em;
+        clip-path: polygon(0% 0%, 100% 100%, 0% 100%);
+        transform: rotate(-45deg);
+    }
+
+    padding: 10px 20px;
+    background-color: $titleBgColor;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+.tooltip {
+    min-width: 100px;
+    color: #fff;
+    p {
+        margin: 0 0 5px;
+        font-size: 20px;
+    }
+    .inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+        span {
+            font-size: 18px;
+        }
+    }
+}
