@@ -5,6 +5,7 @@ import { DetailsChartComponent } from 'src/app/core/components/details-chart/det
 import { NumbersListComponent } from 'src/app/core/components/numbers-list/numbers-list.component';
 import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
 import { DetailChartSeriesData } from 'src/app/core/models/DetailsChartSeriesData';
+import { MoreChartInfo } from 'src/app/core/models/MoreChartInfo';
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -22,6 +23,7 @@ export class DetailsComponent {
   numberList: NumberItem[] = [];
   pageTitle: string = '';
   chartData!: DetailsChartData[];
+  moreInfo: MoreChartInfo[] = [];
 
   constructor(
     private olympicService: OlympicService,
@@ -116,10 +118,19 @@ export class DetailsComponent {
 
             if (country === this.countryId) {
               // make array of medals number by year
-              item.participations.map(el => seriesData.push({ 
-                  name: el.year.toString(),
-                  value: el.medalsCount
-                })
+              item.participations.map(el => {
+                  seriesData.push({ 
+                    name: el.year.toString(),
+                    value: el.medalsCount
+                  })
+
+                  this.moreInfo.push({
+                    year: el.year,
+                    city: el.city,
+                    medalsCount: el.medalsCount,
+                    athleteCount: el.athleteCount
+                  })
+                }
               );
 
               // prepare data for the chart

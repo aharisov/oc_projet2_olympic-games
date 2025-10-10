@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DetailsChartData } from '../../models/DetailsChartData';
+import { MoreChartInfo } from '../../models/MoreChartInfo';
 
 @Component({
   selector: 'app-details-chart',
@@ -10,8 +11,16 @@ import { DetailsChartData } from '../../models/DetailsChartData';
 })
 export class DetailsChartComponent implements OnInit {
   @Input() data!: DetailsChartData[];
+  @Input() moreInfo!: MoreChartInfo[];
 
   chartData: DetailsChartData[] = [];
+  showMoreInfo: boolean = false; // show or not additional data of the game
+  currentYearInfo: MoreChartInfo = { // additional data of the game
+        year: 0,
+        city: '',
+        medalsCount: 0,
+        athleteCount: 0
+  }; 
 
   // options
   legend: boolean = false;
@@ -26,11 +35,25 @@ export class DetailsChartComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
+      // console.info('more', this.moreInfo[0])
       this.chartData = this.data;
     }, 200)
   }
 
   onSelect(event: any) {
-    console.log('Selected point:', event);
+    if (event.name) {
+      // get data for chosen year
+      this.currentYearInfo = this.moreInfo.filter(el => el.year == event.name)[0];
+      
+      setTimeout(() => {
+        this.showMoreInfo = true;
+      }, 200)
+    }
+  }
+
+  onDeactivate(data: any): void {
+    setTimeout(() => {
+      this.showMoreInfo = false;
+    }, 500)
   }
 }
