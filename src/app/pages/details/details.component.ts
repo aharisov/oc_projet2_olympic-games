@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { DetailsChartComponent } from 'src/app/components/details-chart/details-chart.component';
@@ -9,6 +9,7 @@ import { MoreChartInfo } from 'src/app/core/models/MoreChartInfo';
 import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit, OnDestroy {
   public olympics$: Observable<any> = of(null);
   public countryId: string = '';
 
@@ -27,8 +28,10 @@ export class DetailsComponent {
 
   constructor(
     private olympicService: OlympicService,
-    public activatedRoute: ActivatedRoute
-  ) {}
+    public activatedRoute: ActivatedRoute,
+    private titleService: Title,
+    private metaService: Meta
+  ) { }
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
@@ -38,6 +41,12 @@ export class DetailsComponent {
     this.setPageTitle();
     this.calculateNumbers();
     this.setChartData();
+  }
+
+  ngOnDestroy(): void {
+    // remove seo data on component's destroy
+    this.metaService.removeTag('name="title"');
+    this.metaService.removeTag('name="description"');
   }
 
   /**
@@ -65,6 +74,12 @@ export class DetailsComponent {
                 medalsCounter += el.medalsCount;
                 athletCounter += el.athleteCount;
               });
+
+              // seo: add page description
+              this.metaService.addTag({
+                name: "description",
+                content: "Total number of medals: " + medalsCounter,
+              })
             }
           }
         )
@@ -99,6 +114,9 @@ export class DetailsComponent {
 
             if (country === this.countryId) {
               this.pageTitle = item.country;
+
+              // seo: set page title
+              this.titleService.setTitle(this.pageTitle);
             }
           }
         )

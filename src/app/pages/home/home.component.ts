@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { NumbersListComponent } from "src/app/components/numbers-list/numbers-list.component";
@@ -6,6 +6,7 @@ import { NumberItem } from 'src/app/core/models/NumberItem';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { HomeChartComponent } from "src/app/components/home-chart/home-chart.component";
 import { HomeChartData } from 'src/app/core/models/HomeChartData';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +16,35 @@ import { HomeChartData } from 'src/app/core/models/HomeChartData';
   imports: [NumbersListComponent, HomeChartComponent]
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public olympics$: Observable<any> = of(null);
 
   numberList: NumberItem[] = [];
   chartData: HomeChartData[] = [];
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(
+    private olympicService: OlympicService,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     
     this.calculateNumbers();
+
+    // set seo data
+    this.titleService.setTitle("L'application Jeux Olimpiques");
+    this.metaService.addTag({
+      name: "description",
+      content: "Welcome to my apllication",
+    })
+  }
+
+  ngOnDestroy(): void {
+    // remove seo data on component's destroy
+    this.metaService.removeTag('name="title"');
+    this.metaService.removeTag('name="description"');
   }
 
   /**
