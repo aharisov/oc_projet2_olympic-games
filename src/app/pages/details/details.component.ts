@@ -18,7 +18,7 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent implements OnInit, OnDestroy {
-  public olympics$: Observable<any> = of(null);
+  public olympics$!: Observable<Olympic[]>;
   public countryId: string = '';
 
   numberList: NumberItem[] = [];

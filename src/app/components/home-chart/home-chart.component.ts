@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, DataItem } from '@swimlane/ngx-charts';
 import { HomeChartData } from 'src/app/core/models/HomeChartData';
 
 @Component({
@@ -30,8 +30,8 @@ export class HomeChartComponent implements OnInit {
     }, 200)
   }
 
-  onSelect($event: any) {
-    let countryName = $event.name.toLowerCase().replace(' ', '_');
+  onSelect($event: DataItem) {
+    let countryName = $event.name.toString().toLowerCase().replace(' ', '_');
     
     this.router.navigate(['/details', countryName]);
   }

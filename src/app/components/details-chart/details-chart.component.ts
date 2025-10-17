@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, DataItem } from '@swimlane/ngx-charts';
 import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
 import { MoreChartInfo } from 'src/app/core/models/MoreChartInfo';
 
@@ -40,10 +40,10 @@ export class DetailsChartComponent implements OnInit {
     }, 200)
   }
 
-  onSelect(event: any) {
-    if (event.name) {
+  onSelect($event: DataItem) {
+    if ($event.name) {
       // get data for chosen year
-      this.currentYearInfo = this.moreInfo.filter(el => el.year == event.name)[0];
+      this.currentYearInfo = this.moreInfo.filter(el => el.year == $event.name)[0];
       
       setTimeout(() => {
         this.showMoreInfo = true;
@@ -51,7 +51,7 @@ export class DetailsChartComponent implements OnInit {
     }
   }
 
-  onDeactivate(data: any): void {
+  onDeactivate(data: DataItem): void {
     setTimeout(() => {
       this.showMoreInfo = false;
     }, 500)

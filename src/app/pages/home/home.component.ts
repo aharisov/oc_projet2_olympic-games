@@ -17,7 +17,7 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-  public olympics$: Observable<any> = of(null);
+  public olympics$!: Observable<Olympic[]>;
 
   numberList: NumberItem[] = [];
   chartData: HomeChartData[] = [];
