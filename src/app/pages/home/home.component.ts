@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { NumbersListComponent } from "src/app/components/numbers-list/numbers-list.component";
 import { NumberItem } from 'src/app/core/models/NumberItem';
@@ -18,6 +18,8 @@ import { Meta, Title } from '@angular/platform-browser';
 
 export class HomeComponent implements OnInit, OnDestroy {
   public olympics$!: Observable<Olympic[]>;
+  // use this variable as a signal in order to make unsubscribe
+  private destroy$ = new Subject<void>();
 
   numberList: NumberItem[] = [];
   chartData: HomeChartData[] = [];
@@ -45,6 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     // remove seo data on component's destroy
     this.metaService.removeTag('name="title"');
     this.metaService.removeTag('name="description"');
+
+    this.destroy$.next(); // emits a signal to all takeUntil()
+    this.destroy$.complete(); // closes the subject to free memory
   }
 
   /**
@@ -52,8 +57,9 @@ export class HomeComponent implements OnInit, OnDestroy {
    * and show them in the main page
    */
   calculateNumbers(): void {
-    this.olympics$.subscribe(
-      (data) => {
+    this.olympics$
+      .pipe(takeUntil(this.destroy$)) // we listen to the updates until receiving the signal from destroy$
+      .subscribe((data) => {
         // get number of JOs calculating max number of participations
         let gamesCounter = 0;
         data.map((item: Olympic) => {
