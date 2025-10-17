@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { DetailsChartComponent } from 'src/app/components/details-chart/details-chart.component';
 import { NumbersListComponent } from 'src/app/components/numbers-list/numbers-list.component';
 import { DetailsChartData } from 'src/app/core/models/DetailsChartData';
@@ -18,8 +18,10 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent implements OnInit, OnDestroy {
-  public olympics$: Observable<any> = of(null);
+  public olympics$!: Observable<Olympic[]>;
   public countryId: string = '';
+  // use this variable as a signal in order to make unsubscribe
+  private destroy$ = new Subject<void>();
 
   numberList: NumberItem[] = [];
   pageTitle: string = '';
@@ -47,6 +49,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     // remove seo data on component's destroy
     this.metaService.removeTag('name="title"');
     this.metaService.removeTag('name="description"');
+
+    this.destroy$.next(); // emits a signal to all takeUntil()
+    this.destroy$.complete(); // closes the subject to free memory
   }
 
   /**
@@ -54,8 +59,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
    * number of medals and athletes
    */
   calculateNumbers(): void {
-    this.olympics$.subscribe(
-      (data) => {
+    this.olympics$
+      .pipe(takeUntil(this.destroy$)) // we listen to the updates until receiving the signal from destroy$
+      .subscribe((data) => {
         let gamesCounter = 0;
         let medalsCounter = 0;
         let athletCounter = 0;
